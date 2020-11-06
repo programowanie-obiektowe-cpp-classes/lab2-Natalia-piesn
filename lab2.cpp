@@ -13,7 +13,13 @@ public:
         dlugosc = num_elements;
     }
     ~Wektor() { delete[] wektor; }
-    void print() { cout << wektor[4] << "\n"; }
+
+    void print()
+    {
+        for (int i = 0; i < dlugosc; i++) {
+            cout << wektor[i] << "\n";
+        }
+    }
 
     double* wektor;
     int     get_dlugosc() { return dlugosc; }
