@@ -1,23 +1,6 @@
 #include <iostream>
 using namespace std;
-/*
-struct Liczba
-{
-    Liczba(int w) : wartosc{w} {}
-    // Liczba(const Liczba& l) : wartosc{l.wartosc} { cout << "Copying constructor" << endl; }
 
-    int wartosc;
-};
-
-int main()
-{
-    Liczba a{1};
-    Liczba b{a};  // W celu konstrukcji b wołamy konstruktor kopiujący z argumentem 'a'
-    Liczba c = a; // Tutaj także wołamy konstruktor kopiujący, vide lab. 1
-    cout << c.wartosc;
-}
-
-*/
 class Wektor
 {
 public:
@@ -28,9 +11,13 @@ public:
             *(wektor + i) = 0.0;
         }
     }
-    Wektor(const Wektor& A)
-        : length{A.length}, capacity{A.length}, num_el{A.length}, wektor{A.wektor}
-    {}
+    Wektor(const Wektor& A) : length{A.length}, capacity{A.length}, num_el{A.length}, wektor{}
+    {
+        wektor = new double[num_el];
+        for (int i = 0; i < num_el; i++) {
+            wektor[i] = A.wektor[i];
+        }
+    }
 
     ~Wektor() { delete[] wektor; }
 
