@@ -4,14 +4,20 @@ using namespace std;
 class Wektor
 {
 public:
-    Wektor() { wektor = new double[0]; }
-    Wektor(int num_elements) : num_el{num_elements}, length{num_elements}, capacity{num_elements}
+    Wektor(int num_elements) : length{num_elements}, capacity{num_elements}
+    {
+        wektor = new double[num_elements];
+        for (int i = 0; i < num_elements; i++) {
+            *(wektor + i) = 0.0;
+        }
+    }
+    /*
     {
         wektor = new double[num_el];
         for (int i = 0; i < num_el; i++) {
             *(wektor + i) = 0.0;
         }
-    }
+    } */
     ~Wektor() { delete[] wektor; }
 
     void set_wektor()
@@ -39,8 +45,8 @@ public:
             double* wektor_new = (double*)realloc(wektor, new_length * sizeof(double));
             for (int i = 0; i < length; i++) {
                 *(wektor_new + i) = *(wektor + i);
-                cout << *(wektor + i) << " ";
-                cout << *(wektor_new + i) << " ";
+                //  cout << *(wektor + i) << " ";
+                //  cout << *(wektor_new + i) << " ";
             }
             for (int i = capacity; i < new_length; i++) {
                 *(wektor_new + i) = 0.0;
@@ -52,7 +58,6 @@ public:
         }
     }
 
-    int     num_el;
     int     get_length() { return length; }
     int     get_capacity() { return capacity; }
     double& operator[](int index)
@@ -64,9 +69,10 @@ public:
     }
 
 private:
-    double* wektor;
+    //  double* wektor;
     int     length;
     int     capacity;
+    double* wektor;
 };
 
 int main()
