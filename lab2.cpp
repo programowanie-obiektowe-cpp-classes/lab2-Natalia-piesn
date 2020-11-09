@@ -1,23 +1,37 @@
 #include <iostream>
 using namespace std;
+/*
+struct Liczba
+{
+    Liczba(int w) : wartosc{w} {}
+    // Liczba(const Liczba& l) : wartosc{l.wartosc} { cout << "Copying constructor" << endl; }
 
+    int wartosc;
+};
+
+int main()
+{
+    Liczba a{1};
+    Liczba b{a};  // W celu konstrukcji b wołamy konstruktor kopiujący z argumentem 'a'
+    Liczba c = a; // Tutaj także wołamy konstruktor kopiujący, vide lab. 1
+    cout << c.wartosc;
+}
+
+*/
 class Wektor
 {
 public:
-    Wektor(int num_elements) : length{num_elements}, capacity{num_elements}
-    {
-        wektor = new double[num_elements];
-        for (int i = 0; i < num_elements; i++) {
-            *(wektor + i) = 0.0;
-        }
-    }
-    /*
+    Wektor(int num_elements) : length{num_elements}, capacity{num_elements}, num_el{num_elements}
     {
         wektor = new double[num_el];
         for (int i = 0; i < num_el; i++) {
             *(wektor + i) = 0.0;
         }
-    } */
+    }
+    Wektor(const Wektor& A)
+        : length{A.length}, capacity{A.length}, num_el{A.length}, wektor{A.wektor}
+    {}
+
     ~Wektor() { delete[] wektor; }
 
     void set_wektor()
@@ -72,6 +86,7 @@ private:
     //  double* wektor;
     int     length;
     int     capacity;
+    int     num_el;
     double* wektor;
 };
 
@@ -80,6 +95,7 @@ int main()
     Wektor A{5};
     A.set_wektor();
     A.print();
+    /*
     cout << A.get_length() << " " << A.get_capacity() << endl;
     A.change_length(2);
     A[0] = 41.;
@@ -88,5 +104,7 @@ int main()
     cout << a << " ";
     a++;
     cout << A[0] << " " << a << endl;
-    A.print();
+    A.print();*/
+    Wektor B{A};
+    B.print();
 }
