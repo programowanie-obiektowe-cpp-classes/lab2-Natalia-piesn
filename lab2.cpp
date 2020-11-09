@@ -22,7 +22,7 @@ public:
     }
     void print()
     {
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < length; i++) {
             cout << *(wektor + i) << "\n";
         }
     }
@@ -50,16 +50,15 @@ public:
         }
     }
 
-    double* wektor;
-
-    // double* wektor_new;
-    int num_el;
-    int get_length() { return length; }
-    int get_capacity() { return capacity; }
+    int     num_el;
+    int     get_length() { return length; }
+    int     get_capacity() { return capacity; }
+    double& operator[](int index) { return wektor[index]; }
 
 private:
-    int length;
-    int capacity;
+    double* wektor;
+    int     length;
+    int     capacity;
 };
 
 int main()
@@ -68,15 +67,11 @@ int main()
     A.set_wektor();
     A.print();
     cout << A.get_length() << " " << A.get_capacity() << endl;
-
-    A.change_length(5);
+    A[0] = 41.;
+    cout << A[0] << endl;
+    double& a = A[0];
+    cout << a << " ";
+    a++;
+    cout << A[0] << endl;
     A.print();
-    cout << A.get_length() << " " << A.get_capacity() << endl;
-
-    A.change_length(20);
-    A.print();
-    cout << A.get_length() << " " << A.get_capacity() << endl;
-    A.change_length(12);
-    A.print();
-    cout << A.get_length() << " " << A.get_capacity() << endl;
 }
