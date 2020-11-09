@@ -39,6 +39,8 @@ public:
             double* wektor_new = (double*)realloc(wektor, new_length * sizeof(double));
             for (int i = 0; i < length; i++) {
                 *(wektor_new + i) = *(wektor + i);
+                cout << *(wektor + i) << " ";
+                cout << *(wektor_new + i) << " ";
             }
             for (int i = capacity; i < new_length; i++) {
                 *(wektor_new + i) = 0.0;
@@ -53,7 +55,13 @@ public:
     int     num_el;
     int     get_length() { return length; }
     int     get_capacity() { return capacity; }
-    double& operator[](int index) { return wektor[index]; }
+    double& operator[](int index)
+    {
+        if (index > length) {
+            change_length(index);
+        }
+        return wektor[index];
+    }
 
 private:
     double* wektor;
@@ -63,15 +71,16 @@ private:
 
 int main()
 {
-    Wektor A{15};
+    Wektor A{5};
     A.set_wektor();
     A.print();
     cout << A.get_length() << " " << A.get_capacity() << endl;
+    A.change_length(2);
     A[0] = 41.;
-    cout << A[0] << endl;
-    double& a = A[0];
+    A.print();
+    double a = A[10];
     cout << a << " ";
     a++;
-    cout << A[0] << endl;
+    cout << A[0] << " " << a << endl;
     A.print();
 }
