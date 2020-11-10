@@ -3,6 +3,7 @@ using namespace std;
 
 class Wektor
 {
+
 public:
     Wektor(int num_elements) : length{num_elements}, capacity{num_elements}, num_el{num_elements}
     {
@@ -43,19 +44,32 @@ public:
             }
         }
         else {
-            double* wektor_new = (double*)realloc(wektor, new_length * sizeof(double));
-            for (int i = 0; i < length; i++) {
-                *(wektor_new + i) = *(wektor + i);
-                //  cout << *(wektor + i) << " ";
-                //  cout << *(wektor_new + i) << " ";
-            }
-            for (int i = capacity; i < new_length; i++) {
+
+            double* wektor_new = new double[new_length];
+            for (int i = 0; i < new_length; i++) {
                 *(wektor_new + i) = 0.0;
             }
+            for (int i = 0; i < length; i++) {
+                *(wektor_new + i) = *(wektor + i);
+            }
+            delete[] wektor;
+            wektor = wektor_new;
+
+            /*
+            for (int i = 0; i < new_length; i++) {
+                cout << *(wektor + i) << " ";
+                cout << *(wektor_new + i) << " " << endl;
+            }
+            */
+            // wektor = (double*)realloc(wektor, new_length * sizeof(double));
+            /*
+            for (int i = 0; i < new_length; i++) {
+                cout << *(wektor + i) << " ";
+                cout << *(wektor_new + i) << " " << endl;
+            }
+            */
             capacity = new_length;
             length   = new_length;
-            wektor   = wektor_new;
-            delete[] wektor_new;
         }
     }
 
@@ -70,7 +84,6 @@ public:
     }
 
 private:
-    //  double* wektor;
     int     length;
     int     capacity;
     int     num_el;
@@ -81,17 +94,20 @@ int main()
 {
     Wektor A{5};
     A.set_wektor();
-    A.print();
-    /*
+    // A.print();
+
     cout << A.get_length() << " " << A.get_capacity() << endl;
     A.change_length(2);
     A[0] = 41.;
+    // A.print();
+    // A[3];
+    // A.print();
+    A[10];
+    // double a = A[10];
+    // cout << a << " ";
+    // a++;
+    // cout << A[0] << " " << a << endl;
     A.print();
-    double a = A[10];
-    cout << a << " ";
-    a++;
-    cout << A[0] << " " << a << endl;
-    A.print();*/
-    Wektor B{A};
-    B.print();
+    // Wektor B{A};
+    // B.print();
 }
