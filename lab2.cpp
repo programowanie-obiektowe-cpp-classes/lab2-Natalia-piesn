@@ -1,6 +1,48 @@
+#include "zal/include/Resource.hpp"
 #include <iostream>
 using namespace std;
 
+class ResourceManager
+{
+    Resource res;
+
+    ResourceManager(const ResourceManager& res_man) : res{res_man.res} {};
+
+    ResourceManager(ResourceManager&& res_man) : res() { res = res_man.res; }
+
+    ~ResourceManager() {}
+
+    double get() { return res.get(); }
+
+    ResourceManager operator=(const ResourceManager& res_man)
+    {
+        if (&res_man == this) {
+            return *this;
+        }
+        else {
+            res = res_man.res;
+        }
+        return *this;
+    }
+
+    ResourceManager operator=(ResourceManager&& res_man)
+    {
+        if (&res_man == this) {
+            return *this;
+        }
+        else {
+            res = res_man.res;
+        }
+        return *this;
+    }
+};
+
+int main()
+{
+    return 0;
+}
+
+/*
 class Wektor
 {
 
@@ -132,3 +174,4 @@ int main()
     A.print();
     cout << A.get_length() << " " << A.get_capacity();
 }
+*/
