@@ -4,6 +4,7 @@
 
 class ResourceManager
 {
+public:
     Resource res;
 
     ResourceManager(const ResourceManager& res_man) : res{res_man.res} {};
