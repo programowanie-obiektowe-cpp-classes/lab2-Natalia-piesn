@@ -20,6 +20,19 @@ public:
         }
     }
 
+    Wektor(Wektor&& vec) : length(0), capacity(0), num_el(0), wektor(nullptr)
+    {
+        length   = vec.length;
+        capacity = vec.capacity;
+        num_el   = vec.num_el;
+        wektor   = vec.wektor;
+
+        vec.wektor   = nullptr;
+        vec.length   = 0;
+        vec.capacity = 0;
+        vec.num_el   = 0;
+    }
+
     ~Wektor() { delete[] wektor; }
 
     void set_wektor()
@@ -80,6 +93,18 @@ public:
         for (int i = 0; i < length; i++) {
             wektor[i] = *(vec.wektor + i);
         }
+        return *this;
+    }
+
+    Wektor& operator=(Wektor&& vec)
+    {
+        if (&vec == this) {
+            return *this;
+        }
+
+        delete wektor;
+        wektor     = vec.wektor;
+        vec.wektor = nullptr;
         return *this;
     }
 
