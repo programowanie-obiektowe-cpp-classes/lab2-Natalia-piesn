@@ -25,7 +25,7 @@ public:
     void set_wektor()
     {
         for (int i = 0; i < capacity; i++) {
-            *(wektor + i) = i;
+            *(wektor + i) = capacity - i;
         }
     }
     void print()
@@ -53,28 +53,12 @@ public:
                 *(wektor_new + i) = *(wektor + i);
             }
             delete[] wektor;
-            wektor = wektor_new;
-
-            /*
-            for (int i = 0; i < new_length; i++) {
-                cout << *(wektor + i) << " ";
-                cout << *(wektor_new + i) << " " << endl;
-            }
-            */
-            // wektor = (double*)realloc(wektor, new_length * sizeof(double));
-            /*
-            for (int i = 0; i < new_length; i++) {
-                cout << *(wektor + i) << " ";
-                cout << *(wektor_new + i) << " " << endl;
-            }
-            */
+            wektor   = wektor_new;
             capacity = new_length;
             length   = new_length;
         }
     }
 
-    int     get_length() { return length; }
-    int     get_capacity() { return capacity; }
     double& operator[](int index)
     {
         if (index > length) {
@@ -82,6 +66,25 @@ public:
         }
         return wektor[index];
     }
+
+    Wektor& operator=(const Wektor& vec)
+    {
+        if (&vec == this)
+            return *this;
+        if (length != vec.length) {
+            // cout << vec.wektor[vec.length - 1] << endl;
+            change_length(vec.length);
+
+            // cout << "done";
+        }
+        for (int i = 0; i < length; i++) {
+            wektor[i] = *(vec.wektor + i);
+        }
+        return *this;
+    }
+
+    int get_length() { return length; }
+    int get_capacity() { return capacity; }
 
 private:
     int     length;
@@ -94,20 +97,13 @@ int main()
 {
     Wektor A{5};
     A.set_wektor();
-    // A.print();
+    A.print();
 
     cout << A.get_length() << " " << A.get_capacity() << endl;
-    A.change_length(2);
-    A[0] = 41.;
-    // A.print();
-    // A[3];
-    // A.print();
-    A[10];
-    // double a = A[10];
-    // cout << a << " ";
-    // a++;
-    // cout << A[0] << " " << a << endl;
+    Wektor B{2};
+    B.set_wektor();
+    B.print();
+    A = B;
     A.print();
-    // Wektor B{A};
-    // B.print();
+    cout << A.get_length() << " " << A.get_capacity();
 }
