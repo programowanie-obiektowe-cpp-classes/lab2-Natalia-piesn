@@ -13,21 +13,26 @@ public:
       res = new Resource;
     }
 
-    ResourceManager(const ResourceManager& res_man) : {
-      res = new Resource{*res_man.res}
-    };
+    ResourceManager(const ResourceManager& res_man)
+    {
+      res = new Resource{*res_man.res};
+    }
 
-    ResourceManager(ResourceManager&& res_man) : { 
+    ResourceManager(ResourceManager&& res_man)
+    { 
       res = nullptr;
       res = res_man.res;
       res_man.res = nullptr;
-      }
+    }
 
     ~ResourceManager() {
       delete res;
     }
 
-    double get() { return res->get(); }
+    double get() 
+    { 
+      return res->get(); 
+    }
 
     ResourceManager operator=(const ResourceManager& res_man)
     {
